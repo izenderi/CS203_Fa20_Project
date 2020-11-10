@@ -22,7 +22,7 @@ You will be given the source code containing the threaded_vector_blockmm functio
 
 git clone https://github.com/hungweitseng/CS203_Fa20_Project
 
-You should develop this project under a Linux machine. We will run your project on sledge.cs.ucr.edu. As a CSE student, you should have access to it. If not, please acquire an account from CSE's IT at systems@cs.ucr.edu. Please don't contact us for account issues. 
+You should develop this project under a Linux machine. We will run your project on  ti-05.cs.ucr.edu. As a CSE student, you should have access to it. If not, please acquire an account from CSE's IT at systems@cs.ucr.edu. Please don't contact us for account issues. 
 
 Once you clone the repo, you will find a few files in there. The build the executable file, you need to use "make" command in each directory. Once you finish making the files, you will see an executable file called "project". It accepts a few arguments -- the array size, the N in block algorithm, and the nuber_of_threads available. By default, we will test your program using
 
