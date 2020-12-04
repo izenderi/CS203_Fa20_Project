@@ -19,7 +19,7 @@ void *mythreaded_vector_blockmm(void *t);
 
 char name[128];
 char SID[128];
-#define VECTOR_WIDTH 4
+#define VECTOR_WIDTH 8
 void my_threaded_vector_blockmm(double **a, double **b, double **c, int n, int ARRAY_SIZE, int number_of_threads)
 {
   int i=0;
