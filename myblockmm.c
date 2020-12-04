@@ -69,23 +69,21 @@ void *mythreaded_vector_blockmm(void *t)
   {
     for(j = 0; j < ARRAY_SIZE; j+=(tile_size))
     {
-      // _mm_prefetch(&b)
       for(k = 0; k < ARRAY_SIZE; k+=(tile_size))
       {
-        // _mm_prefetch(&a)
          for(ii = i; ii < i+(tile_size); ii++)
          {
             for(jj = j; jj < j+(tile_size); jj+=VECTOR_WIDTH)
             {
-                    vc = _mm256_loadu_pd(&c[ii][jj]);
+                    vc = _mm256_load_pd(&c[ii][jj]);
 
                 for(kk = k; kk < k+(tile_size); kk++)
                 {
                         va = _mm256_broadcast_sd(&a[ii][kk]);
                         vb = _mm256_load_pd(&b[kk][jj]);
-                        vc = _mm256_fmadd_pd(vc,_mm256_mul_pd(va,vb));
+                        vc = _mm256_add_pd(vc,_mm256_mul_pd(va,vb));
                  }
-                     _mm256_storeu_pd(&c[ii][jj],vc);
+                     _mm256_store_pd(&c[ii][jj],vc);
             }
           }
       }
