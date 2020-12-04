@@ -71,6 +71,9 @@ void *mythreaded_vector_blockmm(void *t)
     {
       for(k = 0; k < ARRAY_SIZE; k+=(tile_size))
       {
+        _mm_prefetch(&a, j)
+        _mm_prefetch(&b, k)
+        _mm_prefetch(&c, k)
          for(ii = i; ii < i+(tile_size); ii++)
          {
             for(jj = j; jj < j+(tile_size); jj+=VECTOR_WIDTH)
