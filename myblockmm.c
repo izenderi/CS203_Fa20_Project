@@ -5,6 +5,7 @@
 #include <x86intrin.h>
 #include <sys/time.h>
 #include <pthread.h>
+# include <omp.h>
 #include "myblockmm.h"
 
 struct thread_info
@@ -65,6 +66,9 @@ void *mythreaded_vector_blockmm(void *t)
   int block_size = ARRAY_SIZE/number_of_threads;
   int tile_size = ARRAY_SIZE/n;
 
+#pragma omp parallel shared(a,b,c) private(i,j,k)
+{ 
+  # pragma omp for
   for(i = (block_size)*(tid); i < (block_size)*(tid+1); i+=tile_size)
   {
     for(j = 0; j < ARRAY_SIZE; j+=(tile_size))
@@ -92,4 +96,5 @@ void *mythreaded_vector_blockmm(void *t)
       }
     }
   }
+}
 }
