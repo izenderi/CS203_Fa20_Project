@@ -47,7 +47,7 @@ void my_threaded_vector_blockmm(double **a, double **b, double **c, int n, int A
   return;
 }
 
-#define VECTOR_WIDTH 4
+#define VECTOR_WIDTH 8
 void *mythreaded_vector_blockmm(void *t)
 {
   int i,j,k, ii, jj, kk, x;
