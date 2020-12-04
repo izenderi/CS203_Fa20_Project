@@ -63,6 +63,7 @@ void *mythreaded_vector_blockmm(void *t)
   int n = tinfo.n;
 
   // Begin modification----------------------------------------------------
+  number_of_threads = omp_get_max_threads ( );
   int block_size = ARRAY_SIZE/number_of_threads;
   int tile_size = ARRAY_SIZE/n;
 
