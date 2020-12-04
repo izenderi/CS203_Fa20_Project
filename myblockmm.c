@@ -71,9 +71,9 @@ void *mythreaded_vector_blockmm(void *t)
             for(jj = j; jj < j+(ARRAY_SIZE/n); jj+=VECTOR_WIDTH)
             {
                     vc0 = _mm256_load_pd(&c[ii][jj]);
-                    // vc1 = _mm256_load_pd(&c[ii][jj+1]);
-                    // vc2 = _mm256_load_pd(&c[ii][jj+2]);
-                    // vc3 = _mm256_load_pd(&c[ii][jj+3]);
+                    vc1 = _mm256_load_pd(&c[ii][jj+1]);
+                    vc2 = _mm256_load_pd(&c[ii][jj+2]);
+                    vc3 = _mm256_load_pd(&c[ii][jj+3]);
 
                 for(kk = k; kk < k+(ARRAY_SIZE/n); kk+=VECTOR_WIDTH)
                 {
@@ -81,22 +81,22 @@ void *mythreaded_vector_blockmm(void *t)
                         vb = _mm256_load_pd(&b[kk][jj]);
                         vc0 = _mm256_add_pd(vc0,_mm256_mul_pd(va,vb));
 
-                        va = _mm256_broadcast_sd(&a[ii][kk+1]);
-                        vb = _mm256_load_pd(&b[kk+1][jj]);
+                        va = _mm256_broadcast_sd(&a[ii+1][kk]);
+                        vb = _mm256_load_pd(&b[kk][jj+1]);
                         vc0 = _mm256_add_pd(vc0,_mm256_mul_pd(va,vb));
 
-                        va = _mm256_broadcast_sd(&a[ii][kk+2]);
-                        vb = _mm256_load_pd(&b[kk+2][jj]);
+                        va = _mm256_broadcast_sd(&a[ii+2][kk]);
+                        vb = _mm256_load_pd(&b[kk][jj+2]);
                         vc0 = _mm256_add_pd(vc0,_mm256_mul_pd(va,vb));
 
-                        va = _mm256_broadcast_sd(&a[ii][kk+3]);
-                        vb = _mm256_load_pd(&b[kk+3][jj]);
+                        va = _mm256_broadcast_sd(&a[ii+3][kk]);
+                        vb = _mm256_load_pd(&b[kk][jj+3]);
                         vc0 = _mm256_add_pd(vc0,_mm256_mul_pd(va,vb));
                  }
                      _mm256_store_pd(&c[ii][jj],vc0);
-                     // _mm256_store_pd(&c[ii][jj+1],vc1);
-                     // _mm256_store_pd(&c[ii][jj+2],vc2);
-                     // _mm256_store_pd(&c[ii][jj+3],vc3);
+                     _mm256_store_pd(&c[ii][jj+1],vc1);
+                     _mm256_store_pd(&c[ii][jj+2],vc2);
+                     _mm256_store_pd(&c[ii][jj+3],vc3);
             }
           }
       }
