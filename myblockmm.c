@@ -67,7 +67,7 @@ void *mythreaded_vector_blockmm(void *t)
   int tile_size = ARRAY_SIZE/n;
 
 #pragma omp parallel shared(a,b,c) private(i,j,k)
-{ 
+{
   # pragma omp for
   for(i = (block_size)*(tid); i < (block_size)*(tid+1); i+=tile_size)
   {
@@ -75,9 +75,9 @@ void *mythreaded_vector_blockmm(void *t)
     {
       for(k = 0; k < ARRAY_SIZE; k+=(tile_size))
       {
-        _mm_prefetch(&a, _MM_HINT_T0);
-        _mm_prefetch(&b, _MM_HINT_T0);
-        _mm_prefetch(&c, _MM_HINT_T0);
+        _mm_prefetch(&a[i][k], _MM_HINT_T0);
+        _mm_prefetch(&b[k][j], _MM_HINT_T0);
+        _mm_prefetch(&c[i][j], _MM_HINT_T0);
          for(ii = i; ii < i+(tile_size); ii++)
          {
             for(jj = j; jj < j+(tile_size); jj+=VECTOR_WIDTH)
