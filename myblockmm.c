@@ -94,9 +94,9 @@ void *mythreaded_vector_blockmm(void *t)
                         vc3 = _mm256_add_pd(vc3,_mm256_mul_pd(va,vb));
                  }
                      _mm256_store_pd(&c[ii][jj],vc0);
-                     _mm256_store_pd(&c[ii][jj],vc1);
-                     _mm256_store_pd(&c[ii][jj],vc2);
-                     _mm256_store_pd(&c[ii][jj],vc3);
+                     _mm256_store_pd(&c[ii][jj+1],vc1);
+                     _mm256_store_pd(&c[ii][jj+2],vc2);
+                     _mm256_store_pd(&c[ii][jj+3],vc3);
             }
           }
       }
