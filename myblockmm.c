@@ -51,7 +51,7 @@ void my_threaded_vector_blockmm(double **a, double **b, double **c, int n, int A
 void *mythreaded_vector_blockmm(void *t)
 {
   int i,j,k, ii, jj, kk, x;
-  __m256d va, vb, vc;
+  __m512d va, vb, vc;
   struct thread_info tinfo = *(struct thread_info *)t;
   int number_of_threads = tinfo.number_of_threads;
   int tid =  tinfo.tid;
@@ -75,15 +75,15 @@ void *mythreaded_vector_blockmm(void *t)
          {
             for(jj = j; jj < j+(tile_size); jj+=VECTOR_WIDTH)
             {
-                    vc = _mm256_load_pd(&c[ii][jj]);
+                    vc = _mm512_load_pd(&c[ii][jj]);
 
                 for(kk = k; kk < k+(tile_size); kk++)
                 {
-                        va = _mm256_broadcast_sd(&a[ii][kk]);
-                        vb = _mm256_load_pd(&b[kk][jj]);
-                        vc = _mm256_add_pd(vc,_mm256_mul_pd(va,vb));
+                        va = _mm512_broadcast_sd(&a[ii][kk]);
+                        vb = _mm512_load_pd(&b[kk][jj]);
+                        vc = _mm512_add_pd(vc,_mm512_mul_pd(va,vb));
                  }
-                     _mm256_store_pd(&c[ii][jj],vc);
+                     _mm512_store_pd(&c[ii][jj],vc);
             }
           }
       }
