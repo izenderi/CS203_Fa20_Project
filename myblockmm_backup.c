@@ -60,24 +60,19 @@ void *mythreaded_vector_blockmm(void *t)
   double **c = tinfo.c;
   int ARRAY_SIZE = tinfo.array_size;
   int n = tinfo.n;
-
-  // Begin modification----------------------------------------------------
-  int block_size = ARRAY_SIZE/number_of_threads;
-  int tile_size = ARRAY_SIZE/n;
-
-  for(i = (block_size)*(tid); i < (block_size)*(tid+1); i+=tile_size)
+  for(i = (ARRAY_SIZE/number_of_threads)*(tid); i < (ARRAY_SIZE/number_of_threads)*(tid+1); i+=ARRAY_SIZE/n)
   {
-    for(j = 0; j < ARRAY_SIZE; j+=(tile_size))
+    for(j = 0; j < ARRAY_SIZE; j+=(ARRAY_SIZE/n))
     {
-      for(k = 0; k < ARRAY_SIZE; k+=(tile_size))
+      for(k = 0; k < ARRAY_SIZE; k+=(ARRAY_SIZE/n))
       {
-         for(ii = i; ii < i+(tile_size); ii++)
+         for(ii = i; ii < i+(ARRAY_SIZE/n); ii++)
          {
-            for(jj = j; jj < j+(tile_size); jj+=VECTOR_WIDTH)
+            for(jj = j; jj < j+(ARRAY_SIZE/n); jj+=VECTOR_WIDTH)
             {
                     vc = _mm256_load_pd(&c[ii][jj]);
 
-                for(kk = k; kk < k+(tile_size); kk++)
+                for(kk = k; kk < k+(ARRAY_SIZE/n); kk++)
                 {
                         va = _mm256_broadcast_sd(&a[ii][kk]);
                         vb = _mm256_load_pd(&b[kk][jj]);
