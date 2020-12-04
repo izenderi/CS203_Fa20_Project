@@ -81,17 +81,17 @@ void *mythreaded_vector_blockmm(void *t)
                         vb = _mm256_load_pd(&b[kk][jj]);
                         vc0 = _mm256_add_pd(vc0,_mm256_mul_pd(va,vb));
 
-                        // va = _mm256_broadcast_sd(&a[ii][kk+1]);
-                        // vb = _mm256_load_pd(&b[kk+1][jj]);
-                        // vc1 = _mm256_add_pd(vc1,_mm256_mul_pd(va,vb));
-                        //
-                        // va = _mm256_broadcast_sd(&a[ii][kk+2]);
-                        // vb = _mm256_load_pd(&b[kk+2][jj]);
-                        // vc2 = _mm256_add_pd(vc2,_mm256_mul_pd(va,vb));
-                        //
-                        // va = _mm256_broadcast_sd(&a[ii][kk+3]);
-                        // vb = _mm256_load_pd(&b[kk+3][jj]);
-                        // vc3 = _mm256_add_pd(vc3,_mm256_mul_pd(va,vb));
+                        va = _mm256_broadcast_sd(&a[ii][kk+1]);
+                        vb = _mm256_load_pd(&b[kk+1][jj]);
+                        vc0 = _mm256_add_pd(vc0,_mm256_mul_pd(va,vb));
+
+                        va = _mm256_broadcast_sd(&a[ii][kk+2]);
+                        vb = _mm256_load_pd(&b[kk+2][jj]);
+                        vc0 = _mm256_add_pd(vc0,_mm256_mul_pd(va,vb));
+
+                        va = _mm256_broadcast_sd(&a[ii][kk+3]);
+                        vb = _mm256_load_pd(&b[kk+3][jj]);
+                        vc0 = _mm256_add_pd(vc0,_mm256_mul_pd(va,vb));
                  }
                      _mm256_store_pd(&c[ii][jj],vc0);
                      // _mm256_store_pd(&c[ii][jj+1],vc1);
