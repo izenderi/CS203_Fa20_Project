@@ -75,7 +75,7 @@ void *mythreaded_vector_blockmm(void *t)
                     vc2 = _mm256_load_pd(&c[ii+1][jj]);
                     vc3 = _mm256_load_pd(&c[ii+1][jj+1]);
 
-                for(kk = k; kk < k+(ARRAY_SIZE/n); kk++)
+                for(kk = k; kk < k+(ARRAY_SIZE/n)-1; kk++)
                 {
                         va = _mm256_broadcast_sd(&a[ii][kk]);
                         vb = _mm256_load_pd(&b[kk][jj]);
