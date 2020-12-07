@@ -75,19 +75,30 @@ void *mythreaded_vector_blockmm(void *t)
                     vc2 = _mm256_load_pd(&c[ii+2][jj]);
                     vc3 = _mm256_load_pd(&c[ii+3][jj]);
 
+                    _mm_prefetch((const char*)(&a[ii][k]), _MM_HINT_NTA);
+                    _mm_prefetch((const char*)(&b[k][jj]), _MM_HINT_NTA);
+
                 for(kk = k; kk < k+(ARRAY_SIZE/n); kk++)
                 {
+                        _mm_prefetch((const char*)(&a[ii+1][kk]), _MM_HINT_NTA);
+
                         va = _mm256_broadcast_sd(&a[ii][kk]);
                         vb = _mm256_load_pd(&b[kk][jj]);
                         vc0 = _mm256_add_pd(vc0,_mm256_mul_pd(va,vb));
+
+                        _mm_prefetch((const char*)(&a[ii+2][kk]), _MM_HINT_NTA);
 
                         va = _mm256_broadcast_sd(&a[ii+1][kk]);
                         vb = _mm256_load_pd(&b[kk][jj]);
                         vc1 = _mm256_add_pd(vc1,_mm256_mul_pd(va,vb));
 
+                        _mm_prefetch((const char*)(&a[ii+3][kk]), _MM_HINT_NTA);
+
                         va = _mm256_broadcast_sd(&a[ii+2][kk]);
                         vb = _mm256_load_pd(&b[kk][jj]);
                         vc2 = _mm256_add_pd(vc2,_mm256_mul_pd(va,vb));
+
+                        _mm_prefetch((const char*)(&a[ii][kk+1]), _MM_HINT_NTA);
 
                         va = _mm256_broadcast_sd(&a[ii+3][kk]);
                         vb = _mm256_load_pd(&b[kk][jj]);
